@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<int> dq;
+        vector<int> ans;
+
+       for(int i=0;i<nums.size() ;i++){
+            //out of bound condition //window size se bhar jane wale element queue se bhar kardo
+            if(!dq.empty() && dq.front()==i-k) dq.pop_front();
+
+            //removing element bigger from back
+            while(!dq.empty() && nums[dq.back()]<nums[i]){
+                dq.pop_back();
+            }
+
+            dq.push_back(i);
+            if(i>=k-1)ans.push_back(nums[dq.front()]);//pushing front ele
+            
+        }
+
+        return ans;
+    }
+};
